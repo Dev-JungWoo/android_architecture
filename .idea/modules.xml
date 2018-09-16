@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Entities/Entities.iml" filepath="$PROJECT_DIR$/Entities/Entities.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UseCases/UseCases.iml" filepath="$PROJECT_DIR$/UseCases/UseCases.iml" />
       <module fileurl="file://$PROJECT_DIR$/android_architecture.iml" filepath="$PROJECT_DIR$/android_architecture.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
