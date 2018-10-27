@@ -1,6 +1,7 @@
 package com.vincent.mymovie.di
 
 import android.support.v4.app.Fragment
+import com.vincent.mymovie.view.movies.MoviesComponent
 import com.vincent.mymovie.view.movies.MoviesFragment
 import dagger.Binds
 import dagger.Module

@@ -19,7 +19,7 @@ class MoviesFragment : Fragment(), IMoviesView {
     private lateinit var moviesViewModel: MoviesViewModel
 
     @Inject
-    private lateinit var movieDataSource: RemoteMovieDataSource
+    lateinit var movieDataSource: RemoteMovieDataSource
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         moviesViewModel = ViewModelProviders.of(activity!!, MoviesViewModelFactory(OMDBMovieService(movieDataSource))).get(MoviesViewModel::class.java)
