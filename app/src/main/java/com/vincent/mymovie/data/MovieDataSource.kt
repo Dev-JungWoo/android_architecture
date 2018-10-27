@@ -1,7 +1,7 @@
-package com.vincent.usecases.service
+package com.vincent.mymovie.data
 
 import com.vincent.entities.Movie
 
-interface IMovieService {
+interface MovieDataSource {
     suspend fun searchMovies(title: String): List<Movie>?
 }
