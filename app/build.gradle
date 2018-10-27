@@ -48,8 +48,13 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.4'
 
     // Dagger 2
-    implementation 'com.google.dagger:dagger:2.13'
-    kapt 'com.google.dagger:dagger-compiler:2.13'
+    // Dagger 2
+    implementation "com.google.dagger:dagger:$dagger2_version"
+    implementation "com.google.dagger:dagger-android:$dagger2_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger2_version"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$dagger2_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger2_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger2_version"
 
     // RxJava
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
