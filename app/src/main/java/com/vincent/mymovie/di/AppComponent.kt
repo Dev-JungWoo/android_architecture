@@ -6,7 +6,9 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 
-@Component(modules = [AndroidInjectionModule::class, AppModule::class, ActivityBuilder::class])
+//https://google.github.io/dagger/android.html
+
+@Component(modules = [AndroidInjectionModule::class, AppModule::class, MainActivityModule::class])
 interface AppComponent {
 
     @Component.Builder

@@ -5,7 +5,7 @@ import android.content.Context
 import dagger.Binds
 import dagger.Module
 
-@Module(subcomponents = [MainActivityComponent::class])
+@Module
 abstract class AppModule {
     // TODO: All modules will use application context which is not ideal.
     @Binds

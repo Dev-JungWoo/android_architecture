@@ -1,13 +1,12 @@
-package com.vincent.mymovie.modules
+package com.vincent.mymovie.data
 
-import com.vincent.mymovie.data.MovieDataSource
-import com.vincent.mymovie.data.RemoteMovieDataSource
+import com.vincent.mymovie.services.ServiceModule
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
-@Module(includes = [NetworkModule::class])
+@Module(includes = [ServiceModule::class])
 class RemoteDataSourceModule {
 
     @Provides

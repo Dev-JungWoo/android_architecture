@@ -1,4 +1,4 @@
-package com.vincent.mymovie.modules
+package com.vincent.mymovie.services
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class NetworkModule(private val baseUrl: String) {
+class ServiceModule(private val baseUrl: String) {
 
     @Singleton
     @Provides

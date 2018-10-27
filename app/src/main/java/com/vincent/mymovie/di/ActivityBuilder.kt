@@ -8,7 +8,7 @@ import dagger.android.ActivityKey
 import dagger.android.AndroidInjector
 import dagger.multibindings.IntoMap
 
-@Module
+@Module(subcomponents = [MainActivityComponent::class])
 abstract class ActivityBuilder {
     @Binds
     @IntoMap
