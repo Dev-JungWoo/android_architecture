@@ -5,7 +5,7 @@ import com.vincent.usecases.base.SuspendInteractor
 import com.vincent.usecases.service.IMovieService
 
 class SearchMovies(private val service: IMovieService, private val title: String) : SuspendInteractor<List<Movie>> {
-    override suspend fun execute(): List<Movie> {
+    override suspend fun execute(): List<Movie>? {
         return service.searchMovies(title)
     }
 }
