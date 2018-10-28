@@ -5,6 +5,8 @@ import android.app.Application
 import android.content.Context
 import android.util.Log
 import com.vincent.mymovie.di.DaggerAppComponent
+import com.vincent.mymovie.services.RetrofitMovieService
+import com.vincent.mymovie.services.ServiceModule
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
@@ -30,6 +32,7 @@ class MainApplication : Application() , HasActivityInjector {
         DaggerAppComponent
                 .builder()
                 .application(this)
+                .serviceModule(ServiceModule(RetrofitMovieService.BASE_URL))
                 .build()
                 .inject(this)
 
