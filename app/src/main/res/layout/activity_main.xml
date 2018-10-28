@@ -43,8 +43,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            />
+           />
+
+        <!--<android.support.design.widget.FloatingActionButton-->
+            <!--android:id="@+id/fab"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="16dp"-->
+            <!--android:clickable="true"-->
+            <!--android:focusable="true"-->
+            <!--android:src="@drawable/baseline_search_white_48"-->
+            <!--app:layout_anchor="@+id/main_container"-->
+            <!--app:layout_anchorGravity="right|bottom" />-->
+
+
     </android.support.design.widget.CoordinatorLayout>
+
 
     <!--<andro id.support.design.widget.NavigationView-->
     <!--android:id="@+id/navigationView"-->
@@ -54,5 +68,6 @@
     <!--app:headerLayout="@layout/nav_header"-->
     <!--app:menu="@menu/menu_nav"-->
     <!--/>-->
+
 
 </android.support.v4.widget.DrawerLayout>

@@ -1,7 +1,7 @@
 package com.vincent.mymovie.di
 
 import com.vincent.mymovie.MainActivity
-import com.vincent.mymovie.view.movies.MoviesFragment
+import com.vincent.mymovie.view.movies.MovieListFragment
 import com.vincent.mymovie.view.movies.MoviesFragmentModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -13,5 +13,5 @@ abstract class ActivitiesModule {
     abstract fun bindMainActivity(): MainActivity
 
     @ContributesAndroidInjector(modules = [MoviesFragmentModule::class])
-    abstract fun bindMoviesFragment(): MoviesFragment
+    abstract fun bindMoviesFragment(): MovieListFragment
 }

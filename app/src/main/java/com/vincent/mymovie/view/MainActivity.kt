@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
-import com.vincent.mymovie.view.movies.MoviesFragment
+import com.vincent.mymovie.view.movies.MovieListFragment
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
+import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
@@ -25,9 +26,13 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val transaction = supportFragmentManager.beginTransaction()
-        val moviesFragment = MoviesFragment()
+        val moviesFragment = MovieListFragment()
         transaction.add(R.id.main_container, moviesFragment)
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         transaction.commit()
+
+        setSupportActionBar(toolbar)
+
+        title = resources.getString(R.string.home)
     }
 }

@@ -8,9 +8,9 @@ abstract class FragmentBuilder {
 
 //    @Binds
 //    @IntoMap
-//    @dagger.android.support.FragmentKey(MoviesFragment::class)
+//    @dagger.android.support.FragmentKey(MovieListFragment::class)
 //    abstract fun bindHistoryFragmentInjectorFactory(builder: MoviesFragmentComponent.Builder): AndroidInjector.Factory<out Fragment>
 
-//    @ContributesAndroidInjector(modules = arrayOf(MoviesFragment::class))
-//    abstract fun moviesFragment(): MoviesFragment
+//    @ContributesAndroidInjector(modules = arrayOf(MovieListFragment::class))
+//    abstract fun moviesFragment(): MovieListFragment
 }

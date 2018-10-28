@@ -8,6 +8,6 @@ import dagger.Module
 abstract class MoviesFragmentModule {
 //    @Binds
 //    @IntoMap
-//    @ClassKey(MoviesFragment::class)
+//    @ClassKey(MovieListFragment::class)
 //    internal abstract fun bindYourFragmentInjectorFactory(builder: MoviesFragmentComponent.Builder): AndroidInjector.Factory<*>
 }

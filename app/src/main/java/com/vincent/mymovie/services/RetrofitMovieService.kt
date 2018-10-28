@@ -1,16 +1,20 @@
 package com.vincent.mymovie.services
 
-import com.vincent.entities.Movie
+import com.vincent.mymovie.data.MovieResult
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface RetrofitMovieService {
-    @GET("/s={title}")
-    fun searchMovies(@Path("title") title: String): Call<List<Movie>>
+    @GET("/")
+    fun searchMovies(
+        @Query("apikey") apikey: String,
+        @Query("s") title: String
+    ): Call<MovieResult>
 
     companion object {
-        // ex> http://www.omdbapi.com/?s=Batman&page=2
         val BASE_URL = "http://www.omdbapi.com"
     }
 }
+//"http://www.omdbapi.com?apikey=${appContext.resources.getString(R.string.omdb_api_key)}&"
+//${appContext.resources.getString(R.string.omdb_api_key)}
