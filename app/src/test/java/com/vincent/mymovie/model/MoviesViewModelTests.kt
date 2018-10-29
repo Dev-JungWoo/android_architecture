@@ -13,14 +13,8 @@ import org.mockito.BDDMockito.given
 import org.mockito.Mock
 import org.mockito.Mockito.verify
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-
 @RunWith(JUnit4::class)
-class MoviesViewModelUnitTest : BaseUnitTest() {
+class MoviesViewModelTests : BaseUnitTest() {
     companion object {
         private const val MOVIE_TITLE = "Test Title"
     }
@@ -29,7 +23,7 @@ class MoviesViewModelUnitTest : BaseUnitTest() {
     lateinit var movieDataSource: MovieDataSource
 
     @Test
-    fun testSearchMovies() = runBlocking<Unit> {
+    fun testDataSourceSearchMoviesCalledByViewModel() = runBlocking<Unit> {
         val emptyMovieList: List<Movie> = listOf()
         val movieService = OMDBMovieService(movieDataSource)
 
