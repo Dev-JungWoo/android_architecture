@@ -1,6 +1,6 @@
 package com.vincent.mymovie.services
 
-import com.vincent.mymovie.data.MovieResult
+import com.vincent.mymovie.model.MovieResult
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
