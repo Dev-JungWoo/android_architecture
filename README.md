@@ -2,7 +2,7 @@
 
 This is a movie search app which shows how to make an app based on Clean Architecture.
 
-# Used technologies and language:
+# Used technologies and frameworks:
 - Kotlin
 - Corutines(async, await, runBlocking) which replaced the Rx library
 - Clean Architecture
