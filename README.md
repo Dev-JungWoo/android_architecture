@@ -2,11 +2,12 @@
 
 This is a movie search app which shows how to make an app based on Clean Architecture.
 
-# Used technologies and language:
+# Used technologies and frameworks:
 - Kotlin
-- Corutines
+- Corutines(async, await, runBlocking) which replaced the Rx library
 - Clean Architecture
 - MVVM(Android ViewModel, LiveData)
 - Retrofit
-- Unit test(Mockito, JUnit)
+- Unit tests(Mockito, JUnit) for each module. Each module can be tested independently.
 - Dependency Injection(Dagger2)
+
