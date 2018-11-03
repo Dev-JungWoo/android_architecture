@@ -1,5 +1,6 @@
 package com.vincent.mymovie.data
 
+import com.vincent.mymovie.services.RetrofitMovieService
 import com.vincent.mymovie.services.ServiceModule
 import dagger.Module
 import dagger.Provides
@@ -12,6 +13,6 @@ class RemoteDataSourceModule {
     @Provides
     @Singleton
     fun provideRemoteDataSource(retrofit: Retrofit): MovieDataSource {
-        return RemoteMovieDataSource(retrofit)
+        return RemoteMovieDataSource(retrofit.create(RetrofitMovieService::class.java))
     }
 }

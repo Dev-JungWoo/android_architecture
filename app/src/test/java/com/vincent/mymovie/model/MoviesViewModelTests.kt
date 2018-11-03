@@ -15,10 +15,6 @@ import org.mockito.Mockito.verify
 
 @RunWith(JUnit4::class)
 class MoviesViewModelTests : BaseUnitTest() {
-    companion object {
-        private const val MOVIE_TITLE = "Test Title"
-    }
-
     @Mock
     lateinit var movieDataSource: MovieDataSource
 
