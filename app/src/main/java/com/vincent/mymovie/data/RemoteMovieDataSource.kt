@@ -10,7 +10,6 @@ import java.io.IOException
 
 class RemoteMovieDataSource constructor(private val retrofitMovieService: RetrofitMovieService) : MovieDataSource {
     private val TAG = javaClass.simpleName
-//    private val retrofitMovieService: RetrofitMovieService = retrofit.create(RetrofitMovieService::class.java)
 
     override suspend fun searchMovies(title: String): List<Movie>? {
         val list = mutableListOf<Movie>()

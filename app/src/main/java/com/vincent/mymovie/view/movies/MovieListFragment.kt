@@ -7,10 +7,13 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import com.vincent.entities.Movie
 import com.vincent.mymovie.R
 import com.vincent.mymovie.model.MoviesViewModel
@@ -39,7 +42,16 @@ class MovieListFragment : Fragment(), IMoviesView {
         super.onStart()
 
         movieListRecyclerView.layoutManager = LinearLayoutManager(activity)
+        movieListRecyclerView.adapter = MovieListAdapter(moviesViewModel.movies.value ?: listOf(), this)
+
+        searchEditText.setOnEditorActionListener { _, i, keyEvent ->
+            if (i == EditorInfo.IME_NULL && keyEvent.action == KeyEvent.ACTION_DOWN) {
+                onSearchButtonClicked()
+            }
+            true
+        }
         searchButton.setOnClickListener { onSearchButtonClicked() }
+
         updateUI(moviesViewModel.movies.value)
         moviesViewModel.movies.observe(this, Observer {
             updateUI(it)
@@ -53,14 +65,18 @@ class MovieListFragment : Fragment(), IMoviesView {
 
     private fun updateUI(movieList: List<Movie>?) {
         Log.d(TAG, "updateUI, movieList = $movieList")
-        if (movieList == null) {
+        if (movieList == null || movieList.isEmpty()) {
             noMovieTextView.visibility = View.VISIBLE
+            (movieListRecyclerView.adapter as MovieListAdapter).movieList = listOf()
+            Toast.makeText(activity, "Movie not found", Toast.LENGTH_SHORT).show()
         } else {
             noMovieTextView.visibility = View.GONE
-
-            movieListRecyclerView.adapter = MovieListAdapter(movieList, this)
-            movieListRecyclerView.adapter?.notifyDataSetChanged()
+            (movieListRecyclerView.adapter as MovieListAdapter).movieList = movieList
         }
+
+        movieListRecyclerView.adapter?.notifyDataSetChanged()
+
+
     }
 
     private fun onSearchButtonClicked() {
