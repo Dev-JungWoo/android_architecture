@@ -4,7 +4,7 @@ This is a movie search app which shows how to make an app based on Clean Archite
 
 # Used technologies and frameworks:
 - Kotlin
-- Corutines(async, await, runBlocking) which replaced the Rx library
+- Corutines(async, await, runBlocking) which replaced the Rx library and AsyncTask.
 - Clean Architecture
 - MVVM(Android ViewModel, LiveData)
 - Retrofit
