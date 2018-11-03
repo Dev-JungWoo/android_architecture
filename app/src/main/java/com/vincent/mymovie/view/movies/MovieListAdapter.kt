@@ -2,7 +2,6 @@ package com.vincent.mymovie.view.movies
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.os.AsyncTask
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -48,43 +47,46 @@ class MovieListAdapter(var movieList: List<Movie>, var movieListFragment: MovieL
         yearTextView.text = movie.year
     }
 
-    class ViewHolder(val cardView: CardView) : RecyclerView.ViewHolder(cardView)
-
-    suspend fun loadImage(url: String): Bitmap? {
-        var inputStream: InputStream?
+    private fun loadImage(url: String): Bitmap? {
+        val inputStream: InputStream?
         var bitmap: Bitmap? = null
         try {
             inputStream = URL(url).openStream()
             bitmap = BitmapFactory.decodeStream(inputStream)
         } catch (e: Exception) {
-            Log.d("Error", e.stackTrace.toString())
+            Log.e("Error", e.message, e)
         }
 
         return bitmap
     }
 
-    inner class DownloadImage(private var bmImage: ImageView) : AsyncTask<String, Void, Bitmap>() {
+    class ViewHolder(val cardView: CardView) : RecyclerView.ViewHolder(cardView)
 
-        override fun doInBackground(vararg urls: String): Bitmap? {
-            val url = urls[0]
-
-            Log.d(TAG, "urldisplay=$url")
-
-            var bitmap: Bitmap? = null
-            try {
-                val inputStream = java.net.URL(url).openStream()
-                bitmap = BitmapFactory.decodeStream(inputStream)
-            } catch (e: Exception) {
-                Log.d("Error", e.stackTrace.toString())
-            }
-
-            return bitmap
-        }
-
-        override fun onPostExecute(result: Bitmap?) {
-            if (result != null) {
-                bmImage.setImageBitmap(result)
-            }
-        }
-    }
+    /**
+     * Replaced by coroutines.
+    **/
+//    inner class DownloadImage(private var bmImage: ImageView) : AsyncTask<String, Void, Bitmap>() {
+//
+//        override fun doInBackground(vararg urls: String): Bitmap? {
+//            val url = urls[0]
+//
+//            Log.d(TAG, "urldisplay=$url")
+//
+//            var bitmap: Bitmap? = null
+//            try {
+//                val inputStream = java.net.URL(url).openStream()
+//                bitmap = BitmapFactory.decodeStream(inputStream)
+//            } catch (e: Exception) {
+//                Log.d("Error", e.stackTrace.toString())
+//            }
+//
+//            return bitmap
+//        }
+//
+//        override fun onPostExecute(result: Bitmap?) {
+//            if (result != null) {
+//                bmImage.setImageBitmap(result)
+//            }
+//        }
+//    }
 }

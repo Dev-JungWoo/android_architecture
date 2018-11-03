@@ -17,7 +17,7 @@ class RemoteMovieDataSource constructor(private val retrofitMovieService: Retrof
         var response: Response<MovieResult>? = null
 
         try {
-            response = retrofitMovieService.searchMovies(Constants.OMDB_API_KEY, title).execute()
+            response = retrofitMovieService.searchMovies(Constants.OMDB_API_KEY, title)?.execute()
         } catch (e: IOException) {
             Log.e(TAG, "searchMovies error", e)
         }

@@ -75,8 +75,6 @@ class MovieListFragment : Fragment(), IMoviesView {
         }
 
         movieListRecyclerView.adapter?.notifyDataSetChanged()
-
-
     }
 
     private fun onSearchButtonClicked() {

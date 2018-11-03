@@ -10,7 +10,7 @@ interface RetrofitMovieService {
     fun searchMovies(
         @Query("apikey") apikey: String,
         @Query("s") title: String
-    ): Call<MovieResult>
+    ): Call<MovieResult>?
 
     companion object {
         val BASE_URL = "http://www.omdbapi.com"
