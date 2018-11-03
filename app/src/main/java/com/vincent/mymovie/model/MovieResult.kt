@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 class MovieResult {
 
-    @SerializedName("MovieModel")
+    @SerializedName("Search")
     @Expose
     var search: List<MovieModel>? = null
     @SerializedName("totalResults")
