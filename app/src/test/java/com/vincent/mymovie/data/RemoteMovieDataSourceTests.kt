@@ -7,7 +7,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.BDDMockito.given
+import org.mockito.BDDMockito.verify
 import org.mockito.Mock
+import org.mockito.Mockito.times
 
 @RunWith(JUnit4::class)
 class RemoteMovieDataSourceTests : BaseUnitTest() {
@@ -15,11 +17,20 @@ class RemoteMovieDataSourceTests : BaseUnitTest() {
     lateinit var retrofitMovieService: RetrofitMovieService
 
     @Test
-    fun testRemoteMovieDataSourceReturnNull() = runBlocking {
+    fun testRemoteMovieDataSourceReturnNull() = runBlocking<Unit> {
         val dataSource = RemoteMovieDataSource(retrofitMovieService)
 
         given(retrofitMovieService.searchMovies(API_KEY, MOVIE_TITLE)).will { null }
 
         assert(dataSource.searchMovies(MOVIE_TITLE) == null)
+    }
+
+    @Test
+    fun testRetrofitMovieServiceSearchMoviesCalled() = runBlocking<Unit> {
+        val dataSource = RemoteMovieDataSource(retrofitMovieService)
+
+        dataSource.searchMovies(MOVIE_TITLE)
+
+        verify(retrofitMovieService, times(1)).searchMovies("", MOVIE_TITLE)
     }
 }

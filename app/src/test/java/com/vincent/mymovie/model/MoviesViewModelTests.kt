@@ -6,10 +6,10 @@ import com.vincent.mymovie.data.MovieDataSource
 import com.vincent.mymovie.services.OMDBMovieService
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
-
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.BDDMockito.given
+import org.mockito.BDDMockito.times
 import org.mockito.Mock
 import org.mockito.Mockito.verify
 
@@ -28,6 +28,6 @@ class MoviesViewModelTests : BaseUnitTest() {
         val viewModel =  MoviesViewModel(movieService)
         viewModel.searchMovies(MOVIE_TITLE)
 
-        verify(movieDataSource).searchMovies(MOVIE_TITLE)
+        verify(movieDataSource, times(1)).searchMovies(MOVIE_TITLE)
     }
 }
