@@ -1,7 +1,7 @@
 package com.vincent.mymovie.data
 
-import com.vincent.mymovie.BaseUnitTest
 import com.vincent.mymovie.services.RetrofitMovieService
+import com.vincent.usecases.BaseUnitTest
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
 import org.junit.runner.RunWith

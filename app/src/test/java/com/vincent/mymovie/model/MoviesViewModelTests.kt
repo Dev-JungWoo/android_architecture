@@ -1,9 +1,9 @@
 package com.vincent.mymovie.model
 
 import com.vincent.entities.Movie
-import com.vincent.mymovie.BaseUnitTest
 import com.vincent.mymovie.data.MovieDataSource
 import com.vincent.mymovie.services.OMDBMovieService
+import com.vincent.usecases.BaseUnitTest
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
 import org.junit.runner.RunWith
