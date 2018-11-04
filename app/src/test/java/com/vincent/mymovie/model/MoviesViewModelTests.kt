@@ -27,13 +27,16 @@ class MoviesViewModelTests : BaseUnitTest() {
     @Test
     fun viewModel_shouldReturnEmptyList() = runBlocking<Unit> {
         val emptyMovieList: List<Movie> = listOf()
+        var resultList: List<Movie>? = null
         val movieService = OMDBMovieService(movieDataSource)
 
         given(movieDataSource.searchMovies(MOVIE_TITLE)).will { emptyMovieList }
 
         val viewModel = MoviesViewModel(movieService)
+        viewModel.movies.observeForever { resultList = it }
         viewModel.searchMovies(MOVIE_TITLE)
 
+        assert(resultList === emptyMovieList)
         verify(movieDataSource, times(1)).searchMovies(MOVIE_TITLE)
     }
 
@@ -46,12 +49,9 @@ class MoviesViewModelTests : BaseUnitTest() {
 
         val viewModel =  MoviesViewModel(movieService)
 
-        viewModel.movies.observeForever {
-            resultList = it
-        }
+        viewModel.movies.observeForever { resultList = it }
         viewModel.searchMovies(MOVIE_TITLE)
 
-        assert(resultList != null)
         assert(resultList === SUCCESS_SEARCH_RESULT)
         verify(movieDataSource, times(1)).searchMovies(MOVIE_TITLE)
     }
