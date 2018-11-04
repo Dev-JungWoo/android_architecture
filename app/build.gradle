@@ -20,7 +20,9 @@ android {
         }
     }
     testOptions {
-        unitTests.returnDefaultValues = true
+        unitTests {
+            returnDefaultValues = true
+        }
     }
 }
 
@@ -58,13 +60,17 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
     implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
 
+    /* Test */
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.8.47'
+    testImplementation "org.robolectric:robolectric:4.0.1"
+    testImplementation "android.arch.core:core-testing:1.1.1" //InstantTaskExecutorRule
     androidTestImplementation 'org.mockito:mockito-android:2.8.47'
 
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
+    // Import module
     implementation project(':Entities')
     implementation project(':UseCases')
 }

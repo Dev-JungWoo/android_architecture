@@ -17,7 +17,7 @@ class SearchMoviesTests : BaseUnitTest() {
 
 
     @Test
-    fun testSearchMoviesReturnCorrectResult() = runBlocking<Unit> {
+    fun searchMovies_shouldReturnCorrectResult() = runBlocking<Unit> {
         given(movieService.searchMovies(MOVIE_TITLE)).will { SUCCESS_SEARCH_RESULT }
 
         val result = SearchMovies(movieService, MOVIE_TITLE).execute()
@@ -27,7 +27,7 @@ class SearchMoviesTests : BaseUnitTest() {
     }
 
     @Test
-    fun testSearchMoviesReturnNull() = runBlocking<Unit> {
+    fun searchMovies_shouldReturnNull() = runBlocking<Unit> {
         given(movieService.searchMovies(MOVIE_TITLE)).will { null }
 
         val result = SearchMovies(movieService, MOVIE_TITLE).execute()

@@ -1,7 +1,7 @@
 package com.vincent.mymovie.data
 
+import com.vincent.mymovie.BaseUnitTest
 import com.vincent.mymovie.services.RetrofitMovieService
-import com.vincent.usecases.BaseUnitTest
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -17,7 +17,7 @@ class RemoteMovieDataSourceTests : BaseUnitTest() {
     lateinit var retrofitMovieService: RetrofitMovieService
 
     @Test
-    fun testRemoteMovieDataSourceReturnNull() = runBlocking<Unit> {
+    fun remoteMovieDataSource_shouldReturnNull() = runBlocking<Unit> {
         val dataSource = RemoteMovieDataSource(retrofitMovieService)
 
         given(retrofitMovieService.searchMovies(API_KEY, MOVIE_TITLE)).will { null }
@@ -26,7 +26,7 @@ class RemoteMovieDataSourceTests : BaseUnitTest() {
     }
 
     @Test
-    fun testRetrofitMovieServiceSearchMoviesCalled() = runBlocking<Unit> {
+    fun retrofitMovieServiceSearchMovies_shouldBeCalled() = runBlocking<Unit> {
         val dataSource = RemoteMovieDataSource(retrofitMovieService)
 
         dataSource.searchMovies(MOVIE_TITLE)
