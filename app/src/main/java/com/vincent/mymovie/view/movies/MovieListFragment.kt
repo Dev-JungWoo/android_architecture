@@ -6,13 +6,9 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.SearchView
 import android.util.Log
-import android.view.KeyEvent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
+import android.view.*
 import android.widget.Toast
 import com.vincent.entities.Movie
 import com.vincent.mymovie.R
@@ -37,6 +33,8 @@ class MovieListFragment : Fragment(), IMoviesView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         moviesViewModel = ViewModelProviders.of(activity!!, MoviesViewModelFactory(omdbMovieService)).get(MoviesViewModel::class.java)
 
+        setHasOptionsMenu(true)
+
         return inflater.inflate(R.layout.fragment_movies, container, false)!!
     }
 
@@ -45,14 +43,6 @@ class MovieListFragment : Fragment(), IMoviesView {
 
         movieListRecyclerView.layoutManager = LinearLayoutManager(activity)
         movieListRecyclerView.adapter = MovieListAdapter(moviesViewModel.movies.value ?: listOf(), this)
-
-        searchEditText.setOnEditorActionListener { _, i, keyEvent ->
-            if (i == EditorInfo.IME_NULL && keyEvent.action == KeyEvent.ACTION_DOWN) {
-                onSearchButtonClicked()
-            }
-            true
-        }
-        searchButton.setOnClickListener { onSearchButtonClicked() }
 
         updateUI(moviesViewModel.movies.value)
         moviesViewModel.movies.observe(this, Observer {
@@ -79,13 +69,31 @@ class MovieListFragment : Fragment(), IMoviesView {
         movieListRecyclerView.adapter?.notifyDataSetChanged()
     }
 
-    private fun onSearchButtonClicked() {
-        val searchText = searchEditText.text.toString()
-        val inputMethodManager = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(movieListFragmentLayout.windowToken, 0)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main, menu)
 
-        if (searchText.isNotEmpty()) {
-            launch(UI) { moviesViewModel.searchMovies(searchText) }
+        val searchItem = menu.findItem(R.id.searchView)
+        val searchView = searchItem.actionView as SearchView
+        searchView.isIconified = false
+        searchView.maxWidth = Integer.MAX_VALUE
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                searchView.clearFocus()
+                Log.d(TAG, "onQueryTextSubmit")
+
+                onSearchSubmit(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                return false
+            }
+        })
+    }
+
+    private fun onSearchSubmit(query: String) {
+        if (query.isNotEmpty()) {
+            launch(UI) { moviesViewModel.searchMovies(query) }
         }
     }
 }
