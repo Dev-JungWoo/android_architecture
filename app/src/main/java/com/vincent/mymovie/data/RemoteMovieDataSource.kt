@@ -11,13 +11,13 @@ import java.io.IOException
 class RemoteMovieDataSource constructor(private val retrofitMovieService: RetrofitMovieService) : MovieDataSource {
     private val TAG = javaClass.simpleName
 
-    override fun searchMovies(title: String): List<Movie>? {
+    override fun searchMovies(title: String, page: Int): List<Movie>? {
         val list = mutableListOf<Movie>()
 
         var response: Response<MovieResult>? = null
 
         try {
-            response = retrofitMovieService.searchMovies(Constants.OMDB_API_KEY, title)?.execute()
+            response = retrofitMovieService.searchMovies(Constants.OMDB_API_KEY, title, page)?.execute()
         } catch (e: IOException) {
             Log.e(TAG, "searchMovies error", e)
         }

@@ -9,7 +9,8 @@ interface RetrofitMovieService {
     @GET("/")
     fun searchMovies(
         @Query("apikey") apikey: String,
-        @Query("s") title: String
+        @Query("s") title: String,
+        @Query("page") page: Int
     ): Call<MovieResult>?
 
     companion object {

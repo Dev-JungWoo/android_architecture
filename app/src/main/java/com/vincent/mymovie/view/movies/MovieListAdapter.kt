@@ -18,8 +18,10 @@ import java.io.InputStream
 import java.net.URL
 
 
-class MovieListAdapter(var movieList: List<Movie>, var movieListFragment: MovieListFragment) : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
+class MovieListAdapter(var movieListFragment: MovieListFragment) : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
     val TAG = javaClass.simpleName
+
+    var movieList: MutableList<Movie> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val cardView = LayoutInflater.from(parent.context).inflate(R.layout.card_movie, parent, false) as CardView
