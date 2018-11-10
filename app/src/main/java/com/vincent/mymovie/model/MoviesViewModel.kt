@@ -12,11 +12,17 @@ class MoviesViewModel(private val movieService: IMovieService) : ViewModel() {
     private var currentTitle = ""
     private var currentPage = 1
     private var dataLoadFinished = false
+    var isNewSearch = false
 
     val movies: MutableLiveData<List<Movie>> = MutableLiveData()
 
     suspend fun searchMovies(title: String, page: Int = 1) {
-        if (isNewSearch(title)) { initData() }
+        if (!currentTitle.contentEquals(title)) {
+            initData()
+            isNewSearch = true
+        } else {
+            isNewSearch = false
+        }
 
         currentTitle = title
 
@@ -25,11 +31,11 @@ class MoviesViewModel(private val movieService: IMovieService) : ViewModel() {
 
         result?.let {
             if (result.isNotEmpty()) {
-                movies.postValue(result)
                 currentPage = page
             } else {
                 dataLoadFinished = true
             }
+            movies.postValue(result)
         }
     }
 
@@ -40,9 +46,5 @@ class MoviesViewModel(private val movieService: IMovieService) : ViewModel() {
     private fun initData() {
         currentPage = 1
         dataLoadFinished = false
-    }
-
-    private fun isNewSearch(title: String): Boolean {
-        return !currentTitle.contentEquals(title)
     }
 }

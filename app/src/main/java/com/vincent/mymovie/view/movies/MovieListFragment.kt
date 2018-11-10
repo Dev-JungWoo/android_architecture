@@ -68,6 +68,10 @@ class MovieListFragment : Fragment(), IMoviesView {
 
         val existingMovieList = (movieListRecyclerView.adapter as MovieListAdapter).movieList
 
+        if (moviesViewModel.isNewSearch) {
+            existingMovieList.clear()
+        }
+
         movieList?.let {
             existingMovieList.addAll(it)
             movieListRecyclerView.adapter?.notifyDataSetChanged()
