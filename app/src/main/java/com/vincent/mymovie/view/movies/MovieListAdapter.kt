@@ -7,8 +7,6 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import com.vincent.entities.Movie
 import com.vincent.mymovie.R
 import kotlinx.android.synthetic.main.card_movie.view.*
@@ -37,18 +35,15 @@ class MovieListAdapter(var movieListFragment: MovieListFragment) : RecyclerView.
 
         val movie = movieList[position]
         val cardView = holder.cardView
-        val posterImageView = cardView.findViewById(R.id.posterImageView) as ImageView
-        val titleTextView = cardView.findViewById(R.id.titleTextView) as TextView
-        val yearTextView = cardView.findViewById(R.id.yearTextView) as TextView
 
         if (!movie.imageUrl.contentEquals("N/A")) {
             launch(UI) {
                 holder.imageLoadingJob = async { loadImage(movie.imageUrl) }
-                holder.imageLoadingJob?.await()?.let { posterImageView.setImageBitmap(it) }
+                holder.imageLoadingJob?.await()?.let { cardView.posterImageView.setImageBitmap(it) }
             }
         }
-        titleTextView.text = movie.title
-        yearTextView.text = movie.year
+        cardView.titleTextView.text = movie.title
+        cardView.yearTextView.text = movie.year
     }
 
     override fun onViewRecycled(holder: ViewHolder) {
