@@ -31,10 +31,11 @@ class MovieListAdapter(var movieListFragment: MovieListFragment) : RecyclerView.
     override fun getItemCount(): Int = movieList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.d(TAG, "onBindViewHolder")
-
         val movie = movieList[position]
         val cardView = holder.cardView
+
+        holder.imageLoadingJob?.cancel()
+        holder.cardView.posterImageView.setImageResource(R.drawable.baseline_loop_black_48)
 
         if (!movie.imageUrl.contentEquals("N/A")) {
             launch(UI) {
@@ -48,7 +49,8 @@ class MovieListAdapter(var movieListFragment: MovieListFragment) : RecyclerView.
 
     override fun onViewRecycled(holder: ViewHolder) {
         holder.imageLoadingJob?.cancel()
-        holder.cardView.posterImageView.setImageResource(R.drawable.navigation_empty_icon)
+
+        holder.cardView.posterImageView.setImageResource(R.drawable.baseline_loop_black_48)
     }
 
     private fun loadImage(url: String): Bitmap? {
@@ -60,7 +62,7 @@ class MovieListAdapter(var movieListFragment: MovieListFragment) : RecyclerView.
                 bitmap = BitmapFactory.decodeStream(inputStream)
             }
         } catch (e: Exception) {
-            Log.e("Error", e.message, e)
+            Log.e(TAG, "Error while loading image")
         }
 
         return bitmap

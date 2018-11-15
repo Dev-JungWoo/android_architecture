@@ -35,6 +35,7 @@ class MoviesViewModel(private val movieService: IMovieService) : ViewModel() {
             } else {
                 dataLoadFinished = true
             }
+
             movies.postValue(result)
         }
     }

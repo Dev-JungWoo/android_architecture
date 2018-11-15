@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE
 import android.support.v7.widget.SearchView
 import android.util.Log
 import android.view.*
@@ -46,7 +47,8 @@ class MovieListFragment : Fragment(), IMoviesView {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
 
-                if (!recyclerView.canScrollVertically(1)) {
+//                Log.d(TAG, "onScrollStateChanged newState = $newState")
+                if (!recyclerView.canScrollVertically(1) && newState == SCROLL_STATE_IDLE) {
                     launch { moviesViewModel.loadNextPage() }
                 }
             }
@@ -73,8 +75,17 @@ class MovieListFragment : Fragment(), IMoviesView {
         }
 
         movieList?.let {
+            val startCount = existingMovieList.size
+
+            Log.d(TAG, "startCount = $startCount, count = ${it.size}")
+
             existingMovieList.addAll(it)
-            movieListRecyclerView.adapter?.notifyDataSetChanged()
+
+            if (moviesViewModel.isNewSearch) {
+                movieListRecyclerView.adapter?.notifyDataSetChanged()
+            } else {
+                movieListRecyclerView.adapter?.notifyItemRangeInserted(startCount, it.size)
+            }
         }
 
         noMovieTextView.visibility = if (existingMovieList.isEmpty()) {

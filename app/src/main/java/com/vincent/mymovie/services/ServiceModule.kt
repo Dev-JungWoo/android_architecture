@@ -25,7 +25,7 @@ class ServiceModule(private val baseUrl: String) {
     @Provides
     fun provideRetrofit(gson: Gson): Retrofit {
         val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        interceptor.level = HttpLoggingInterceptor.Level.BASIC
         val client = OkHttpClient.Builder()
                 .addInterceptor(interceptor)
                 .build()
