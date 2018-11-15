@@ -17,11 +17,11 @@ class MoviesViewModel(private val movieService: IMovieService) : ViewModel() {
     val movies: MutableLiveData<List<Movie>> = MutableLiveData()
 
     suspend fun searchMovies(title: String, page: Int = 1) {
-        if (!currentTitle.contentEquals(title)) {
+        isNewSearch = if (!currentTitle.contentEquals(title)) {
             initData()
-            isNewSearch = true
+            true
         } else {
-            isNewSearch = false
+            false
         }
 
         currentTitle = title

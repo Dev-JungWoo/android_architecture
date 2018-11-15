@@ -7,7 +7,7 @@ import org.junit.runners.JUnit4
 import org.mockito.Mockito.mock
 import org.mockito.MockitoAnnotations
 
-@RunWith(JUnit4::class)
+
 open class BaseUnitTest {
     inline fun <reified T> lambdaMock(): T = mock(T::class.java)
 

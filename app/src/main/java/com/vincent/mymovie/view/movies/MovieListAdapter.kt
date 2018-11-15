@@ -54,7 +54,9 @@ class MovieListAdapter(var movieListFragment: MovieListFragment) : RecyclerView.
         var bitmap: Bitmap? = null
         try {
             inputStream = URL(url).openStream()
-            bitmap = BitmapFactory.decodeStream(inputStream)
+            if (inputStream != null) {
+                bitmap = BitmapFactory.decodeStream(inputStream)
+            }
         } catch (e: Exception) {
             Log.e("Error", e.message, e)
         }

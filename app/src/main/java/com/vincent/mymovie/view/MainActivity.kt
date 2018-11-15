@@ -35,6 +35,4 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
         title = resources.getString(R.string.home)
     }
-
-
 }
