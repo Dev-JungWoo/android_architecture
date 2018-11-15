@@ -11,6 +11,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.vincent.entities.Movie
 import com.vincent.mymovie.R
+import kotlinx.android.synthetic.main.card_movie.view.*
+import kotlinx.coroutines.experimental.Deferred
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.launch
@@ -41,12 +43,17 @@ class MovieListAdapter(var movieListFragment: MovieListFragment) : RecyclerView.
 
         if (!movie.imageUrl.contentEquals("N/A")) {
             launch(UI) {
-                val imageLoadJob = async { loadImage(movie.imageUrl) }
-                imageLoadJob.await()?.let { posterImageView.setImageBitmap(it) }
+                holder.imageLoadingJob = async { loadImage(movie.imageUrl) }
+                holder.imageLoadingJob?.await()?.let { posterImageView.setImageBitmap(it) }
             }
         }
         titleTextView.text = movie.title
         yearTextView.text = movie.year
+    }
+
+    override fun onViewRecycled(holder: ViewHolder) {
+        holder.imageLoadingJob?.cancel()
+        holder.cardView.posterImageView.setImageResource(R.drawable.navigation_empty_icon)
     }
 
     private fun loadImage(url: String): Bitmap? {
@@ -64,7 +71,9 @@ class MovieListAdapter(var movieListFragment: MovieListFragment) : RecyclerView.
         return bitmap
     }
 
-    class ViewHolder(val cardView: CardView) : RecyclerView.ViewHolder(cardView)
+    class ViewHolder(val cardView: CardView) : RecyclerView.ViewHolder(cardView) {
+        var imageLoadingJob: Deferred<Bitmap?>? = null
+    }
 
     /**
      * Replaced by coroutines.
