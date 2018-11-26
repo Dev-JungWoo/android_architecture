@@ -25,11 +25,14 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val transaction = supportFragmentManager.beginTransaction()
-        val moviesFragment = MovieListFragment()
-        transaction.add(R.id.main_container, moviesFragment)
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-        transaction.commit()
+
+        if (savedInstanceState == null) {
+            val transaction = supportFragmentManager.beginTransaction()
+            val moviesFragment = MovieListFragment()
+            transaction.add(R.id.main_container, moviesFragment)
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            transaction.commit()
+        }
 
         setSupportActionBar(toolbar)
 
