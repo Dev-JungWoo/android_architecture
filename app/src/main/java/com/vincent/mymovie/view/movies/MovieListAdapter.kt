@@ -18,7 +18,7 @@ import java.io.InputStream
 import java.net.URL
 
 
-class MovieListAdapter(var movieListFragment: MovieListFragment) : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
+class MovieListAdapter(private val movieSelectListener: IMovieSelectListener) : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
     val TAG = javaClass.simpleName
 
     var movieList: MutableList<Movie> = mutableListOf()

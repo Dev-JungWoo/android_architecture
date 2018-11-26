@@ -22,7 +22,8 @@ import kotlinx.coroutines.experimental.launch
 import javax.inject.Inject
 
 
-class MovieListFragment : Fragment(), IMoviesView {
+class MovieListFragment : Fragment(), IMovieSelectListener {
+
     private val TAG = javaClass.simpleName
 
     private lateinit var moviesViewModel: MoviesViewModel
@@ -116,6 +117,10 @@ class MovieListFragment : Fragment(), IMoviesView {
             }
         })
     }
+
+    override fun onSelect(movie: Movie) {
+    }
+
 
     private fun onSearchSubmit(query: String) {
         if (query.isNotEmpty()) {
