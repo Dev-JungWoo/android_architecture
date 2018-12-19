@@ -36,7 +36,7 @@ class MainApplication : Application() , HasActivityInjector {
                 .build()
                 .inject(this)
 
-        Constants.OMDB_API_KEY = getString(R.string.omdb_api_key)
+        Constants.OMDB_API_KEY = "161ea2d9"
     }
 
     companion object {

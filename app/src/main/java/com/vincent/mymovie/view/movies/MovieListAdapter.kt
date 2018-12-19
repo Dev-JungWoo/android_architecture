@@ -10,10 +10,10 @@ import android.view.ViewGroup
 import com.vincent.entities.Movie
 import com.vincent.mymovie.R
 import kotlinx.android.synthetic.main.card_movie.view.*
-import kotlinx.coroutines.experimental.Deferred
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.async
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.io.InputStream
 import java.net.URL
 
@@ -38,11 +38,13 @@ class MovieListAdapter(private val movieSelectListener: IMovieSelectListener) : 
         holder.cardView.posterImageView.setImageResource(R.drawable.baseline_loop_black_48)
 
         if (!movie.imageUrl.contentEquals("N/A")) {
-            launch(UI) {
-                holder.imageLoadingJob = async { loadImage(movie.imageUrl) }
-                holder.imageLoadingJob?.await()?.let { cardView.posterImageView.setImageBitmap(it) }
+            holder.imageLoadingJob = GlobalScope.launch(Dispatchers.IO) {
+                loadImage(movie.imageUrl)?.let {
+                    GlobalScope.launch(Dispatchers.Main) { cardView.posterImageView.setImageBitmap(it) }
+                }
             }
         }
+
         cardView.titleTextView.text = movie.title
         cardView.yearTextView.text = movie.year
     }
@@ -62,41 +64,13 @@ class MovieListAdapter(private val movieSelectListener: IMovieSelectListener) : 
                 bitmap = BitmapFactory.decodeStream(inputStream)
             }
         } catch (e: Exception) {
-            Log.e(TAG, "Error while loading image")
+            Log.e(TAG, "Error while loading image", e)
         }
 
         return bitmap
     }
 
     class ViewHolder(val cardView: CardView) : RecyclerView.ViewHolder(cardView) {
-        var imageLoadingJob: Deferred<Bitmap?>? = null
+        var imageLoadingJob: Job? = null
     }
-
-    /**
-     * Replaced by coroutines.
-    **/
-//    inner class DownloadImage(private var bmImage: ImageView) : AsyncTask<String, Void, Bitmap>() {
-//
-//        override fun doInBackground(vararg urls: String): Bitmap? {
-//            val url = urls[0]
-//
-//            Log.d(TAG, "urldisplay=$url")
-//
-//            var bitmap: Bitmap? = null
-//            try {
-//                val inputStream = java.net.URL(url).openStream()
-//                bitmap = BitmapFactory.decodeStream(inputStream)
-//            } catch (e: Exception) {
-//                Log.d("Error", e.stackTrace.toString())
-//            }
-//
-//            return bitmap
-//        }
-//
-//        override fun onPostExecute(result: Bitmap?) {
-//            if (result != null) {
-//                bmImage.setImageBitmap(result)
-//            }
-//        }
-//    }
 }

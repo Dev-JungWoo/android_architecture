@@ -18,7 +18,6 @@ import com.vincent.mymovie.model.MoviesViewModelFactory
 import com.vincent.mymovie.services.OMDBMovieService
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_movies.*
-import kotlinx.coroutines.experimental.launch
 import javax.inject.Inject
 
 
@@ -50,7 +49,7 @@ class MovieListFragment : Fragment(), IMovieSelectListener {
 
 //                Log.d(TAG, "onScrollStateChanged newState = $newState")
                 if (!recyclerView.canScrollVertically(1) && newState == SCROLL_STATE_IDLE) {
-                    launch { moviesViewModel.loadNextPage() }
+                    moviesViewModel.loadNextPage()
                 }
             }
         })
@@ -124,7 +123,7 @@ class MovieListFragment : Fragment(), IMovieSelectListener {
 
     private fun onSearchSubmit(query: String) {
         if (query.isNotEmpty()) {
-            launch { moviesViewModel.searchMovies(query) }
+            moviesViewModel.searchMovies(query)
         }
     }
 }

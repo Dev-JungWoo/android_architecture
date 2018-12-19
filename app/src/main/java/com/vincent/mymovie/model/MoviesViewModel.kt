@@ -5,10 +5,12 @@ import android.arch.lifecycle.ViewModel
 import com.vincent.entities.Movie
 import com.vincent.usecases.SearchMovies
 import com.vincent.usecases.service.IMovieService
-import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
-
-class MoviesViewModel(private val movieService: IMovieService) : ViewModel() {
+class MoviesViewModel(private val movieService: IMovieService) : ViewModel(), CoroutineScope {
     private var currentTitle = ""
     private var currentPage = 1
     private var dataLoadFinished = false
@@ -16,32 +18,36 @@ class MoviesViewModel(private val movieService: IMovieService) : ViewModel() {
 
     val movies: MutableLiveData<List<Movie>> = MutableLiveData()
 
-    suspend fun searchMovies(title: String, page: Int = 1) {
-        isNewSearch = if (!currentTitle.contentEquals(title)) {
-            initData()
-            true
-        } else {
-            false
-        }
+    private val job = Job()
+    override val coroutineContext = Dispatchers.Default + job
 
-        currentTitle = title
-
-        val searchWork = async { SearchMovies(movieService, title, page).execute() }
-        val result = searchWork.await()
-
-        result?.let {
-            if (result.isNotEmpty()) {
-                currentPage = page
+    fun searchMovies(title: String, page: Int = 1) {
+        launch {
+            isNewSearch = if (!currentTitle.contentEquals(title)) {
+                initData()
+                true
             } else {
-                dataLoadFinished = true
+                false
             }
 
-            movies.postValue(result)
+            currentTitle = title
+
+            SearchMovies(movieService, title, page).execute()?.let {
+                if (it.isNotEmpty()) {
+                    currentPage = page
+                } else {
+                    dataLoadFinished = true
+                }
+
+                movies.postValue(it)
+            }
         }
     }
 
-    suspend fun loadNextPage() {
-        searchMovies(currentTitle, currentPage + 1)
+    fun loadNextPage() {
+        launch {
+            searchMovies(currentTitle, currentPage + 1)
+        }
     }
 
     private fun initData() {
